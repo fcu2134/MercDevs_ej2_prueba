@@ -34,7 +34,47 @@ namespace MercDevs_ej2.Controllers
 
             return View(await recepcionEquipo.ToListAsync());
         }
-       //no me funciono ninguno profe :C,osea si pero lo tuve que quitar noma , por que me daba puror erroes , ni me alcanzo para hacer el hashpassword 
+        //no me funciono ninguno profe :C,osea si pero lo tuve que quitar noma , por que me daba puror erroes , ni me alcanzo para hacer el hashpassword 
+
+        public async Task<IActionResult> RecepcionCompletada(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var recepcionequipo = await _context.Recepcionequipos.FindAsync(id);
+            if (recepcionequipo == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                recepcionequipo.Estado = 0;
+                _context.Update(recepcionequipo);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Manejar excepción de concurrencia
+                // Loggear el error o manejarlo de acuerdo a tus necesidades
+                Console.WriteLine($"Error al actualizar Recepcionequipo con ID {id}: {ex.Message}");
+                throw; // Puedes lanzar la excepción para que se maneje en niveles superiores
+            }
+            catch (Exception ex)
+            {
+                // Manejar otras excepciones generales
+                Console.WriteLine($"Error general al actualizar Recepcionequipo con ID {id}: {ex.Message}");
+                throw; // Puedes lanzar la excepción para que se maneje en niveles superiores
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+
 
 
         // GET: Recepcionequipoes

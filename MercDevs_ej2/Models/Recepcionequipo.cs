@@ -32,8 +32,8 @@ public partial class Recepcionequipo
     public int? TipoGpu { get; set; }
 
     public string? Grafico { get; set; }
+    public int? Estado { get; set; }
 
-   
     public virtual Cliente IdClienteNavigation { get; set; } = null!;
 
     public virtual Servicio IdServicioNavigation { get; set; } = null!;

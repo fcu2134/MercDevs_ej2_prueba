@@ -27,8 +27,11 @@
                     <th>Cap Almacenamiento</th>
                     <th>Tipo_Gpu</th>
                     <th>@Html.DisplayNameFor(model => model.Grafico)</th>
-                    <th>Id Cliente</th>
+                   
                     <th>Id servicio</th>
+                      <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -47,8 +50,11 @@
                         <td>@Html.DisplayFor(modelItem => item.CapacidadAlmacenamiento)</td>
                         <td>@Html.DisplayFor(modelItem => item.TipoGpu)</td>
                         <td>@Html.DisplayFor(modelItem => item.Grafico)</td>
-                        <td>@Html.DisplayFor(modelItem => item.IdClienteNavigation.IdCliente)</td>
-                        <td>@Html.DisplayFor(modelItem => item.IdServicioNavigation.IdServicio)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+                       
+                        <td>@Html.DisplayFor(modelItem => item.IdServicio)</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
@@ -56,6 +62,9 @@
                                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
                             </div>
                         </td>
+
+                          
+                             
                     </tr>
                 }
             </tbody>

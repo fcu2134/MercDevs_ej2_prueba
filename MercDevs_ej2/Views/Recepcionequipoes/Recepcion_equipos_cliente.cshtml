@@ -22,6 +22,7 @@
                 <th>Cap Almacenamiento</th>
                 <th>Tipo GPU</th>
                 <th>Gráfico</th>
+                <th>Estado</th>
                 <th>Servicio</th>
                 <th>Acciones</th>
             </tr>
@@ -41,13 +42,14 @@
                     <td>@item.CapacidadAlmacenamiento</td>
                     <td>@item.TipoGpu</td>
                     <td>@item.Grafico</td>
-                    <td><a asp-controller="Servicios" asp-action="Details" asp-route-id="@item.IdCliente">@item.IdServicioNavigation.Nombre</a></td>
+                    <td>@item.Estado</td>
+                    <td><a asp-controller="Servicios" asp-action="Details" asp-route-id="@item.IdCliente">@item.IdServicioNavigation?.Nombre</a></td>
                     <td>
-                        @using (Html.BeginForm("ActualizarEstado", "Recepcionequipoes", FormMethod.Post))
-                        {
-                            @Html.Hidden("id", item.Id)
-                            <button type="submit" class="btn btn-primary">Recepción del Equipo</button>
-                        }
+                        <!-- Formulario con el botón -->
+                        <form asp-action="RecepcionCompletada" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-success">Recepción del Equipo</button>
+                        </form>
                     </td>
                 </tr>
             }

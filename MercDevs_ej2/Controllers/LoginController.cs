@@ -69,6 +69,6 @@ namespace MercDevs_ej2.Controllers
 
 
         }
-        //profe no logro entender como encryptar el codigo :C , uso el tripledes pero no me pesca ,por que no hay metodo registrar propio 
+        //profe no logro entender como encryptar el codigo :C , uso el tripledes pero no me pesca 
     }
 }

@@ -1,0 +1,45 @@
+﻿@model MercDevs_ej2.Models.UsuarioLogin
+@{
+    ViewData["Title"] = "Ingresar al Sistema";
+}
+
+<h1>Inicio de sesión al Sistema Mercy Developer Clientes</h1>
+
+
+<hr />
+<div class="row mt-5 justify-content-center">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                Iniciar Sesión
+            </div>
+            <br />
+            @if (ViewData["Mensaje"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewData["Mensaje"]
+                </div>
+            }
+            <div class="card-body">
+                <form asp-action="Ingresar" method="post">
+                    <div>
+                        <label asp-for="Correo" class="control-label"></label>
+                        <input asp-for="Correo" class="form-control" />
+                    </div>
+                    <div>
+                        <label asp-for="Password" class="control-label">Contraseña</label>
+                        <input asp-for="Password" class="form-control" />
+                    </div>
+                    <br />
+                    <div class="d-grid gap-2 mb-3">
+                        <input type="submit" value="Ingresar" class="btn btn-primary" />
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+

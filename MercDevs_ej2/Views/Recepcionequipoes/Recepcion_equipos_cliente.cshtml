@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MercDevs_ej2.Models.Recepcionequipo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index Recepcion De equipos</h1>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo PC</th>
+                <th>Accesorio</th>
+                <th>Marca PC</th>
+                <th>Modelo PC</th>
+                <th>N° Serie</th>
+                <th>Cap Ram</th>
+                <th>Tipo almacenamiento</th>
+                <th>Cap Almacenamiento</th>
+                <th>Tipo GPU</th>
+                <th>Gráfico</th>
+                <th>Servicio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Fecha</td>
+                    <td>@item.TipoPc</td>
+                    <td>@item.Accesorio</td>
+                    <td>@item.MarcaPc</td>
+                    <td>@item.ModeloPc</td>
+                    <td>@item.Nserie</td>
+                    <td>@item.CapacidadRam</td>
+                    <td>@item.TipoAlmacenamiento</td>
+                    <td>@item.CapacidadAlmacenamiento</td>
+                    <td>@item.TipoGpu</td>
+                    <td>@item.Grafico</td>
+                    <td><a asp-controller="Servicios" asp-action="Details" asp-route-id="@item.IdCliente">@item.IdServicioNavigation.Nombre</a></td>
+                    <td>
+                        @using (Html.BeginForm("ActualizarEstado", "Recepcionequipoes", FormMethod.Post))
+                        {
+                            @Html.Hidden("id", item.Id)
+                            <button type="submit" class="btn btn-primary">Recepción del Equipo</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No se encontraron registros.</p>
+}

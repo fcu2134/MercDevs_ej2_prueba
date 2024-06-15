@@ -1,0 +1,32 @@
+﻿@using System.Security.Claims;
+
+
+@{
+    ViewData["Title"] = "Página de Inicio";
+}
+
+@if (User.Identity!.IsAuthenticated)
+{
+    <div class="text-center">
+        <h1 class="display-4">Bienvenido 
+        @User.Claims.Where(c =>
+            c.Type == ClaimTypes.Name).Select(c => 
+                c.Value).SingleOrDefault()
+        @User.Claims.Where(c =>
+                c.Type == ClaimTypes.Email).Select(c =>
+            c.Value).SingleOrDefault()
+     
+        </h1>
+        <p>Requerimientos del laboraroio: Completado</p>
+    </div>
+
+
+
+
+
+
+
+
+};
+
+

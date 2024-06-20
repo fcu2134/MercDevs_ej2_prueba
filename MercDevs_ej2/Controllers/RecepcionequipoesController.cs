@@ -62,18 +62,11 @@ namespace MercDevs_ej2.Controllers
 
             catch (DbUpdateConcurrencyException ex)
             {
-                // Manejar excepción de concurrencia
-                // Loggear el error o manejarlo de acuerdo a tus necesidades
+               
                 Console.WriteLine($"Error al actualizar Recepcionequipo con ID {id}: {ex.Message}");
-                throw; // Puedes lanzar la excepción para que se maneje en niveles superiores
+                throw; 
             }
-            catch (Exception ex)
-            {
-                // Manejar otras excepciones generales
-                Console.WriteLine($"Error general al actualizar Recepcionequipo con ID {id}: {ex.Message}");
-                throw; // Puedes lanzar la excepción para que se maneje en niveles superiores
-            }
-
+           
             return RedirectToAction(nameof(Index));
         }
 

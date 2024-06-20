@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MercDevs_ej2.Models;
-
+using BCrypt.Net;
 namespace MercDevs_ej2.Controllers
 {
     public class UsuariosController : Controller
@@ -57,10 +57,13 @@ namespace MercDevs_ej2.Controllers
         {
             if (ModelState.IsValid)
             {
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
+                usuario.Password = hashedPassword;
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(usuario);
         }
 
@@ -96,6 +99,7 @@ namespace MercDevs_ej2.Controllers
             {
                 try
                 {
+                    usuario.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
                     _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }

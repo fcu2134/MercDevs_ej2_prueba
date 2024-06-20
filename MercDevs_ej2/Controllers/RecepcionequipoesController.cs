@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MercDevs_ej2.Models;
 using Microsoft.CodeAnalysis;
 using System;
+using BCrypt.Net;
 
 
 namespace MercDevs_ej2.Controllers
@@ -34,11 +35,11 @@ namespace MercDevs_ej2.Controllers
 
             return View(await recepcionEquipo.ToListAsync());
         }
-        //no me funciono ninguno profe :C,osea si pero lo tuve que quitar noma , por que me daba puror erroes , ni me alcanzo para hacer el hashpassword 
+        
 
         public async Task<IActionResult> RecepcionCompletada(int? id)
         {
-            if (id == null)
+            if ( id ==0)
             {
                 return NotFound();
             }
@@ -48,13 +49,17 @@ namespace MercDevs_ej2.Controllers
             {
                 return NotFound();
             }
-
+                
+            
             try
             {
+
                 recepcionequipo.Estado = 0;
                 _context.Update(recepcionequipo);
                 await _context.SaveChangesAsync();
             }
+
+
             catch (DbUpdateConcurrencyException ex)
             {
                 // Manejar excepción de concurrencia
@@ -72,13 +77,39 @@ namespace MercDevs_ej2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> activoCompletada(int? id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            var recepcionequipo = await _context.Recepcionequipos.FindAsync(id);
+            if (recepcionequipo == null)
+            {
+                return NotFound();
+            }
 
 
+            try
+            {
+                recepcionequipo.Estado = 1;
+                _context.Update(recepcionequipo);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+
+                Console.WriteLine($"Error al actualizar Recepcionequipo con ID {id}: {ex.Message}");
+                throw;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
 
 
-
-        // GET: Recepcionequipoes
-        public async Task<IActionResult> Index()
+            // GET: Recepcionequipoes
+            public async Task<IActionResult> Index()
         {
             var mercydevsEjercicio2Context = _context.Recepcionequipos.Include(r => r.IdClienteNavigation).Include(r => r.IdServicioNavigation);
             return View(await mercydevsEjercicio2Context.ToListAsync());

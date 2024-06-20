@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MercDevs_ej2.Models;
 using System.Diagnostics;
+using BCrypt.Net;
 
 //Para guardar datos del usuario
 using System.Security.Claims;
@@ -40,7 +41,7 @@ namespace MercDevs_ej2.Controllers
             Console.WriteLine("---------- usuario-----");
             Console.WriteLine(usuario);
 
-            if (usuario == null)
+            if (usuario == null || !BCrypt.Net.BCrypt.Verify(usuarioLogin.Password, usuario.Password))
             {
                 ViewData["Mensaje"] = "Nombre de usuario o contraseña no Coinciden";
                 return View();
